@@ -68,6 +68,32 @@ void insert(int row, int col, int value)
     }
 }
 
+void delete1(int r, int c)
+{
+    if (matrix[r - 1].head->index == c - 1)
+    {
+        matrix[r - 1].head = matrix[r - 1].head->next;
+        return;
+    }
+
+    node *current = matrix[r - 1].head;
+    node *preview = NULL;
+    while (current != NULL)
+    {
+        if (current->index == c - 1)
+        {
+            if (current->next != NULL)
+                preview->next = current->next;
+            else
+                preview->next = NULL;
+            current = preview;
+            return;
+        }
+        preview = current;
+        current = current->next;
+    }
+}
+
 int main()
 {
     read_file();
@@ -89,6 +115,15 @@ int main()
             cout <<"value : ";
             cin >> value;
             insert(row , col , value);
+        }
+        else if(selection == 1)
+        {
+            int row , col;
+            cout << "row : ";
+            cin >> row;
+            cout << "col : ";
+            cin >> col;
+            delete1(row , col);
         }
     }
 }
