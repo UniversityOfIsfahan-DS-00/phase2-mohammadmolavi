@@ -115,6 +115,21 @@ void search(int value)
     cout << "This value is not in the list\n";
 }
 
+void update(int row, int col, int value)
+{
+    node *current = matrix[row].head;
+    for (int i = 0; i < col && current != NULL; i++)
+    {
+        if (current->index == row)
+        {
+            current->data = value;
+            return;
+        }
+        current = current->next;
+    }
+    insert(row, col, value);
+}
+
 int main()
 {
     read_file();
@@ -152,6 +167,17 @@ int main()
             int value;
             cin >> value;
             search(value);
+        }
+        else if(selection == 3)
+        {
+            int row , col , value;
+            cout <<"row : ";
+            cin >> row;
+            cout << "col : ";
+            cin >> col;
+            cout <<"value : ";
+            cin >> value;
+            update(row , col , value);
         }
     }
 }
