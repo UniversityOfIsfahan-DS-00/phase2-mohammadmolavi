@@ -130,6 +130,49 @@ void update(int row, int col, int value)
     insert(row, col, value);
 }
 
+void print(bool type)
+{
+    if (type == 0)
+    {
+        for (int i = 0; i < 10; i++)
+        {
+            for (int j = 0; j < 5; j++)
+            {
+                bool flag = false;
+                node *current = matrix[i].head;
+                while (current != NULL)
+                {
+                    if (current->index == j)
+                    {
+                        cout << current->data;
+                        flag = true;
+                        break;
+                    }
+                    current = current->next;
+                }
+                if (!flag)
+                    cout << "0";
+                if (j < 4)
+                    cout << ",";
+            }
+            cout << endl;
+        }
+    }
+    else
+    {
+        for (int i = 0; i < 10; i++)
+        {
+            node *current = matrix[i].head;
+            while (current != NULL)
+            {
+                cout << i << " " << current->index << " "
+                     << current->data << endl;
+                current = current->next;
+            }
+        }
+    }
+}
+
 int main()
 {
     read_file();
@@ -179,5 +222,16 @@ int main()
             cin >> value;
             update(row , col , value);
         }
+        else if(selection == 4)
+        {
+            bool type;
+            cout << "print 2D matrix enter 0\n"
+                 << "print compress mode enter 1\n";
+            cin >> type;
+            print(type);
+        }
+
+
+        cin >> selection;
     }
 }
