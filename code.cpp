@@ -94,6 +94,27 @@ void delete1(int r, int c)
     }
 }
 
+void search(int value)
+{
+    node *current;
+    for (int i = 0; i < 10; i++)
+    {
+        current = matrix[i].head;
+        int col = 0;
+        while (current != NULL)
+        {
+            if (current->data == value)
+            {
+                cout << "There is this value in the list\n";
+                return;
+            }
+            col++;
+            current = current->next;
+        }
+    }
+    cout << "This value is not in the list\n";
+}
+
 int main()
 {
     read_file();
@@ -124,6 +145,13 @@ int main()
             cout << "col : ";
             cin >> col;
             delete1(row , col);
+        }
+        else if(selection == 2)
+        {
+            cout << "value : ";
+            int value;
+            cin >> value;
+            search(value);
         }
     }
 }
