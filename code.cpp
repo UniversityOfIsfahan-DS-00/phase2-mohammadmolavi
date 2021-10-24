@@ -173,6 +173,21 @@ void print(bool type)
     }
 }
 
+void save_file()
+{
+    ofstream outputFile("M(10,5)2.csv", ios::out);
+    for (int i = 0; i < 10; i++)
+    {
+        node *current = matrix[i].head;
+        while (current != NULL)
+        {
+            outputFile << i << " " << current->index << " "
+                 << current->data << endl;
+            current = current->next;
+        }
+    }
+}
+
 int main()
 {
     read_file();
@@ -230,8 +245,12 @@ int main()
             cin >> type;
             print(type);
         }
-
-
+        else if(selection == 5)
+            save_file();
+        cout << "insert new value : 0 \n"
+            << "delete a value : 1\nsearch : 2 \n"
+            << "update a element : 3 \nprint : 4\n" 
+            << "save new data to a new file : 5\nexit : 6\n";
         cin >> selection;
     }
 }
