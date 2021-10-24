@@ -47,12 +47,24 @@ void read_file()
         {
             if (token1[0] != '0')
                 insert(row + 1, col + 1, atoi(token1));
-            cout << token1;
             token1 = strtok(NULL, ",");
             col++;
         }
         row++;
-        cout << endl;
+    }
+}
+
+void insert(int row, int col, int value)
+{
+    node *newNode = new node;
+    newNode->data = value;
+    newNode->index = col - 1;
+    newNode->next = NULL;
+    if (matrix[row - 1].head == NULL)
+        matrix[row - 1].head = newNode, matrix[row - 1].tail = matrix[row - 1].head;
+    else
+    {
+        newNode->next = matrix[row - 1].head, matrix[row - 1].head = newNode;
     }
 }
 
