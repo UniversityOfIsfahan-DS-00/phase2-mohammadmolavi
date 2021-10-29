@@ -117,10 +117,10 @@ void search(int value)
 
 void update(int row, int col, int value)
 {
-    node *current = matrix[row].head;
+    node *current = matrix[row - 1].head;
     for (int i = 0; i < col && current != NULL; i++)
     {
-        if (current->index == row)
+        if (current->index == col - 1)
         {
             current->data = value;
             return;
@@ -165,7 +165,7 @@ void print(bool type)
             node *current = matrix[i].head;
             while (current != NULL)
             {
-                cout << i << " " << current->index << " "
+                cout << i + 1 << " " << current->index + 1 << " "
                      << current->data << endl;
                 current = current->next;
             }
@@ -175,16 +175,29 @@ void print(bool type)
 
 void save_file()
 {
-    ofstream outputFile("M(10,5)2.csv", ios::out);
+    ofstream outputFile("M(10,5).csv", ios::out);
     for (int i = 0; i < 10; i++)
     {
-        node *current = matrix[i].head;
-        while (current != NULL)
+        for (int j = 0; j < 5; j++)
         {
-            outputFile << i << " " << current->index << " "
-                 << current->data << endl;
-            current = current->next;
+            bool flag = false;
+            node *current = matrix[i].head;
+            while (current != NULL)
+            {
+                if (current->index == j)
+                {
+                    outputFile << current->data;
+                    flag = true;
+                    break;
+                }
+                current = current->next;
+            }
+            if (!flag)
+                outputFile << "0";
+            if (j < 4)
+                outputFile << ",";
         }
+        outputFile << endl;
     }
 }
 
@@ -194,50 +207,50 @@ int main()
     int selection;
     cout << "insert new value : 0 \n"
          << "delete a value : 1\nsearch : 2 \n"
-         << "update a element : 3 \nprint : 4\n" 
+         << "update a element : 3 \nprint : 4\n"
          << "save new data to a new file : 5\nexit : 6\n";
     cin >> selection;
-    while(selection != 6)
+    while (selection != 6)
     {
-        if(selection == 0)
+        if (selection == 0)
         {
-            int row , col , value;
-            cout <<"row : ";
-            cin >> row;
-            cout << "col : ";
-            cin >> col;
-            cout <<"value : ";
-            cin >> value;
-            insert(row , col , value);
-        }
-        else if(selection == 1)
-        {
-            int row , col;
+            int row, col, value;
             cout << "row : ";
             cin >> row;
             cout << "col : ";
             cin >> col;
-            delete1(row , col);
+            cout << "value : ";
+            cin >> value;
+            insert(row, col, value);
         }
-        else if(selection == 2)
+        else if (selection == 1)
+        {
+            int row, col;
+            cout << "row : ";
+            cin >> row;
+            cout << "col : ";
+            cin >> col;
+            delete1(row, col);
+        }
+        else if (selection == 2)
         {
             cout << "value : ";
             int value;
             cin >> value;
             search(value);
         }
-        else if(selection == 3)
+        else if (selection == 3)
         {
-            int row , col , value;
-            cout <<"row : ";
+            int row, col, value;
+            cout << "row : ";
             cin >> row;
             cout << "col : ";
             cin >> col;
-            cout <<"value : ";
+            cout << "value : ";
             cin >> value;
-            update(row , col , value);
+            update(row, col, value);
         }
-        else if(selection == 4)
+        else if (selection == 4)
         {
             bool type;
             cout << "print 2D matrix enter 0\n"
@@ -245,12 +258,12 @@ int main()
             cin >> type;
             print(type);
         }
-        else if(selection == 5)
+        else if (selection == 5)
             save_file();
         cout << "insert new value : 0 \n"
-            << "delete a value : 1\nsearch : 2 \n"
-            << "update a element : 3 \nprint : 4\n" 
-            << "save new data to a new file : 5\nexit : 6\n";
+             << "delete a value : 1\nsearch : 2 \n"
+             << "update a element : 3 \nprint : 4\n"
+             << "save new data to a new file : 5\nexit : 6\n";
         cin >> selection;
     }
 }
