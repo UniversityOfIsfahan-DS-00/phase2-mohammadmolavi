@@ -1,0 +1,6 @@
+event 0 -> o(1)
+event 1 -> o(n)
+event 2 -> o(n*m)
+event 3 -> o(n)
+event 4 -> o(n*m)
+event 5 -> o(n*m)
